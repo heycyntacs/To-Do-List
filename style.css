@@ -35,9 +35,18 @@ button {
     border-bottom: 1px solid white;
 }
 
-.projects div {
+.project {
     font-size: 1.5rem;
     margin: 10px;
+    padding: 10px;
+    border-radius: 5px;
+    text-align: center;
+    transition: 0.3s;
+    cursor: pointer;
+}
+
+.project:hover {
+    background-color: rgb(43, 43, 54);
 }
 
 #add-project {
@@ -47,8 +56,8 @@ button {
     color: white;
     border: none;
     border-radius: 5px;
+    cursor: pointer;
 }
-
 
 #add-project span {
     color: rgb(0, 204, 0);
@@ -61,7 +70,9 @@ button {
 
 .project-form input, .project-form button{
     font-size: 1.1rem;
-    padding: 5px;
+    padding: 6px;
+    margin: 5px;
+    color: black;
 }
 
 .tasks {
@@ -95,6 +106,7 @@ button {
     color: white;
     border: none;
     border-radius: 5px;
+    cursor: pointer;
 }
 
 #add-task span {
@@ -134,7 +146,7 @@ button {
     border-radius: 5px;
 }
 
-.priority{
+#priority{
     font-size: 1rem;
     color: black;
     height: 2rem;
@@ -142,7 +154,7 @@ button {
     width: 300px;
 }
 
-.priority option {
+#priority option {
     color: black;
 }
 
