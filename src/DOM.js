@@ -6,7 +6,7 @@ function showProjectForm () {
     const button = document.querySelector('#add-project')
     .addEventListener('click', () => {
         const form = document.querySelector('.project-form');
-        if (form.style.display === 'none') form.style.display = 'flex';
+        if (!form.style.display || form.style.display === 'none') form.style.display = 'flex';
         else form.style.display = 'none';
     });
 }
@@ -40,7 +40,7 @@ function showTaskForm () {
     const button = document.querySelector('#add-task')
     .addEventListener('click', () => {
         const form = document.querySelector('.task-form');
-        if (form.style.display === 'none') form.style.display = 'flex';
+        if (!form.style.display || form.style.display === 'none') form.style.display = 'flex';
         else form.style.display = 'none';
     });
 }
