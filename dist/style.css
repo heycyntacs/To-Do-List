@@ -6,12 +6,9 @@
     font-family: 'Product Sans', sans-serif;
 }
 
-body {
-    background-color:rgb(43, 43, 54);
-}
-
 main {
     display: flex;
+    background-color:rgb(43, 43, 54);
 }
 
 button {
@@ -88,15 +85,34 @@ button {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    width: 70%;
+    width: 800px;
     margin: 10px;
-    font-size: 1.3rem;
+    font-size: 1.2rem;
     transition: .2s;
     border-radius: 5px;
-    padding: 0px 30px 0px 30px;
+    padding: 10px 30px 10px 30px;
 }
 
-#add-task {
+.task:hover {
+    background: rgb(27, 27, 34);
+}
+
+.title-container {
+    display: flex;
+    align-items: center;
+}
+
+.title-container h3 {
+    margin-left: 10px;
+}
+
+#checkbox {
+    height: 25px;
+    width: 25px;
+    border-radius: 50%;
+}
+
+#add-task-button {
     position: absolute;
     bottom: 5%;
     right: 5%;
@@ -109,7 +125,7 @@ button {
     cursor: pointer;
 }
 
-#add-task span {
+#add-task-button span {
     color: rgb(0, 204, 0);
 }
 
@@ -166,10 +182,6 @@ button {
     margin: 5px;
     padding: 5px;
     font-size: 1rem;
-}
-
-.task:hover {
-    background: grey;
 }
 
 .buttons button{

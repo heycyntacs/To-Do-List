@@ -1,9 +1,11 @@
-import { showProjectForm, showTaskForm, selectProject } from "./DOM";
+import { showProjectForm, showTaskForm, cancelTaskForm, selectProject } from "./DOM";
 import { addProject, addTask } from "./logic";
 
-showProjectForm();
-showTaskForm();
-selectProject();
+(function showForms() {
+    showProjectForm();
+    showTaskForm();
+    cancelTaskForm();
+})();
 
+selectProject();
 addProject();
-addTask();
