@@ -33,6 +33,10 @@ button {
 }
 
 .project {
+    display: flex;
+    align-items: center;
+    height: auto;
+    max-width: 200px;
     font-size: 1.5rem;
     margin: 10px;
     padding: 10px;
@@ -42,11 +46,23 @@ button {
     cursor: pointer;
 }
 
+.project-title {
+    text-align: left;
+    overflow-wrap: break-word;
+    word-wrap: break-word;
+}
+
+.project-checkbox {
+    min-height: 20px;
+    min-width: 20px;
+    margin-right: 10px;
+}
+
 .project:hover {
     background-color: rgb(43, 43, 54);
 }
 
-#add-project {
+#show-project-form {
     font-size: 1.5rem;
     padding: 10px;
     background-color: rgb(43, 43, 54);
@@ -56,7 +72,7 @@ button {
     cursor: pointer;
 }
 
-#add-project span {
+#show-project-form span {
     color: rgb(0, 204, 0);
 }
 
@@ -106,10 +122,9 @@ button {
     margin-left: 10px;
 }
 
-#checkbox {
+.task-checkbox {
     height: 25px;
     width: 25px;
-    border-radius: 50%;
 }
 
 #add-task-button {

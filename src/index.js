@@ -1,11 +1,3 @@
-import { showProjectForm, showTaskForm, cancelTaskForm, selectProject } from "./DOM";
-import { addProject, addTask } from "./logic";
+import buttonListeners from './buttonListeners';
 
-(function showForms() {
-    showProjectForm();
-    showTaskForm();
-    cancelTaskForm();
-})();
-
-selectProject();
-addProject();
+buttonListeners();
