@@ -1,15 +1,22 @@
-import { showProjects, selectProject, hideTaskForm, projectID, showTasks } from "./UserInterface";
+import { showProjects, hideTaskForm, projectID, showTasks } from "./UserInterface";
 import { Project, projects } from './Project';
 import Task from './Task';
+import { setLocalStorage } from "./Storage";
+import { selectProject } from './buttonListeners';
 
 function addProject() {
     const form = document.querySelector('.project-form');
     const title = document.querySelector('#project-title');
 
+    if (title.value === '') {
+        alert('Project cannot be blank.');
+        return;
+    }
+
     //Check for same project name
     for (let i = 0; i < projects.length; i++) {
         if (title.value === projects[i].title) {
-            alert('Project already exists');
+            alert('Project already exists.');
             return;
         }
     }
@@ -24,6 +31,7 @@ function addProject() {
 
     showProjects();
     selectProject();
+    setLocalStorage();
 }
 
 function addTask() {
@@ -46,7 +54,8 @@ function addTask() {
     const task = new Task (title.value, description.value, dueDate.value, priorityValue);
     for (let i = 0; i < projects.length; i++) {
         if (projects[i].id === projectID) {
-            projects[i].tasks.push(task);
+            projects[projectID].tasks.push(task);
+            setLocalStorage();
             break;
         }
     }

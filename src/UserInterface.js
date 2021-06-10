@@ -1,4 +1,6 @@
 import { projects } from './Project'
+import { setLocalStorage } from './Storage';
+import { selectProject } from './buttonListeners';
 
 //PROJECT-RELATED FUNCTIONS
 
@@ -11,6 +13,10 @@ function showProjectForm() {
 }
 
 function showProjects() {
+    if (projects.length === 0) {
+        projectsResetter();
+        return;
+    }
     projectsResetter();
     const projectsDiv = document.querySelector('.projects');
     for (let i = 0; i < projects.length; i++) {
@@ -22,33 +28,26 @@ function showProjects() {
         projectTitle.classList.add('project-title');
         projectTitle.textContent = projects[i].title;
 
-        const checkbox = document.createElement('input');
-        checkbox.classList.add('project-checkbox');
-        checkbox.dataset.index = i;
-        checkbox.type = 'checkbox';
+        const remover = document.createElement('span');
+        remover.classList.add('project-remover');
+        remover.dataset.index = i;
+        remover.textContent = 'X';
 
         projectsDiv.appendChild(project);
-        project.appendChild(checkbox);
+        project.appendChild(remover);
         project.appendChild(projectTitle);
     }
 }
 
-function selectProject() {
-    const projectsDiv = document.querySelectorAll('.project');
-    projectsDiv.forEach(project => {
-        project.addEventListener('click', () => {
-            projectID = parseInt(project.dataset.value);
-            showTasks(projectID);
-        });
-        projectID = parseInt(project.dataset.value);
-        showTasks(projectID);
-    });
-}
-
 function removeProject(e) {
     projects.splice(e.target.dataset.index, 1);
+    console.log(projects);
+    setLocalStorage();
     showProjects();
     selectProject();
+    if (projects.length === 0) {
+        taskResetter();
+    };
 }
 
 function projectsResetter() {
@@ -103,7 +102,7 @@ function hideTaskForm() {
 }
 
 function showTasks(id) {
-    if (!projects[id].tasks[0]) {
+    if (projects.length === 0 || projects[id].tasks.length === 0) {
         taskResetter();
         return;
     }
@@ -117,10 +116,10 @@ function showTasks(id) {
         const titleContainer = document.createElement('div');
         titleContainer.classList.add('title-container');
 
-        const checkbox = document.createElement('input');
-        checkbox.classList.add('task-checkbox');
-        checkbox.dataset.index = i;
-        checkbox.type = 'checkbox';
+        const remover = document.createElement('span');
+        remover.classList.add('task-remover');
+        remover.dataset.index = i;
+        remover.textContent = 'X';
 
         const title = document.createElement('h3');
         title.textContent = projects[id].tasks[i].title;
@@ -130,12 +129,14 @@ function showTasks(id) {
 
         tasks.appendChild(task);
         task.appendChild(titleContainer);
-        titleContainer.appendChild(checkbox);
+        titleContainer.appendChild(remover);
         titleContainer.appendChild(title);
         task.appendChild(dueDate);
     }
+}
 
-    priorityChecker();
+function showTaskDetails() {
+    
 }
 
 function priorityChecker() {
@@ -158,6 +159,7 @@ function priorityChecker() {
 
 function removeTask(e) {
     projects[projectID].tasks.splice([parseInt(e.target.dataset.index)], 1);
+    setLocalStorage();
     showTasks(projectID);
 }
 
@@ -166,7 +168,7 @@ function taskResetter() {
 }
 
 //Project Exports
-export { showProjectForm, showProjects, selectProject, removeProject, projectID };
+export { showProjectForm, showProjects, removeProject, projectID };
 
 //Task Exports
 export { showTaskForm, cancelTaskForm, hideTaskForm, showTasks, removeTask};
