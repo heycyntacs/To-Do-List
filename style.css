@@ -52,10 +52,17 @@ button {
     word-wrap: break-word;
 }
 
-.project-checkbox {
-    min-height: 20px;
-    min-width: 20px;
+.project-remover, 
+.task-remover {
+    font-size: 1.2rem;
+    font-weight: bold;
     margin-right: 10px;
+    cursor: pointer;
+}
+
+.project-remover:hover, 
+.task-remover:hover {
+    color: red;
 }
 
 .project:hover {
@@ -120,11 +127,6 @@ button {
 
 .title-container h3 {
     margin-left: 10px;
-}
-
-.task-checkbox {
-    height: 25px;
-    width: 25px;
 }
 
 #add-task-button {
