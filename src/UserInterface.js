@@ -1,6 +1,6 @@
 import { projects } from './Project'
 import { setLocalStorage } from './Storage';
-import { selectProject } from './buttonListeners';
+import { selectProject } from './eventListeners';
 
 //PROJECT-RELATED FUNCTIONS
 
@@ -39,12 +39,23 @@ function showProjects() {
     }
 }
 
+function selectNewProject() {
+    selectProject();
+    const projectsDiv = document.querySelectorAll('.project');
+    if (projectsDiv.length === 0) return;
+    for (let i = 0; i < projectsDiv.length; i++) {
+        projectsDiv[i].classList.remove('active-project');
+    }
+    projectID = parseInt(projectsDiv[projectsDiv.length - 1].dataset.value);
+    showTasks(projectID);
+    projectsDiv[projectsDiv.length - 1].classList.add('active-project');
+}
+
 function removeProject(e) {
     projects.splice(e.target.dataset.index, 1);
-    console.log(projects);
     setLocalStorage();
     showProjects();
-    selectProject();
+    selectNewProject();
     if (projects.length === 0) {
         taskResetter();
     };
@@ -52,10 +63,6 @@ function removeProject(e) {
 
 function projectsResetter() {
     document.querySelector('.projects').innerHTML = '';
-}
-
-function projectColorResetter (project) {
-    project.style.background = null;
 }
 
 //TASK-RELATED FUNCTIONS
@@ -113,48 +120,100 @@ function showTasks(id) {
         task.classList.add('task');
         task.dataset.index = i;
 
-        const titleContainer = document.createElement('div');
-        titleContainer.classList.add('title-container');
+        const leftContainer = document.createElement('div');
+        leftContainer.classList.add('left-container');
 
         const remover = document.createElement('span');
         remover.classList.add('task-remover');
         remover.dataset.index = i;
         remover.textContent = 'X';
 
-        const title = document.createElement('h3');
-        title.textContent = projects[id].tasks[i].title;
+        const titleContainer = document.createElement('div');
+        titleContainer.classList.add('title-container');
 
-        const dueDate = document.createElement('p');
+        const title = document.createElement('h3');
+        title.classList.add('task-title');
+        title.dataset.index = i;
+        title.textContent = projects[id].tasks[i].title;
+        title.style.color = 'rgb(27, 27, 34)';
+
+        const titleEditor = document.createElement('input');
+        titleEditor.classList.add('task-title-editor');
+        titleEditor.type = 'text';
+        titleEditor.value = `${title.textContent}`;
+        titleEditor.maxLength = '30';
+        
+        const description = document.createElement('p');
+        description.classList.add('task-description');
+        description.dataset.index = i;
+        description.textContent = projects[id].tasks[i].description;
+        description.style.color = 'rgb(27, 27, 34)';
+
+        const descriptionEditor = document.createElement('input');
+        descriptionEditor.classList.add('task-description-editor');
+        descriptionEditor.type = 'text';
+        descriptionEditor.value = `${description.textContent}`;
+        descriptionEditor.maxLength = '40';
+
+        const dueDate = document.createElement('h4');
+        dueDate.classList.add('task-due-date');
+        dueDate.dataset.index = i;
         dueDate.textContent = `Due Date: ${projects[id].tasks[i].dueDate}`;
+        dueDate.style.color = 'rgb(27, 27, 34)';
+
+        const dueDateEditor = document.createElement('input');
+        dueDateEditor.classList.add('task-due-date-editor');
+        dueDateEditor.type = 'date';
+        dueDateEditor.value = `${dueDate.textContent}`;
+
+        const priorities = document.createElement('div');
+        priorities.dataset.index = i;
+        priorities.classList.add('task-priority-editor');
+
+        const high = document.createElement('div');
+        high.classList.add('High')
+
+        const medium = document.createElement('div');
+        medium.classList.add('Medium')
+
+        const low = document.createElement('div');
+        low.classList.add('Low')
+
 
         tasks.appendChild(task);
-        task.appendChild(titleContainer);
-        titleContainer.appendChild(remover);
+        task.appendChild(leftContainer);
+        leftContainer.appendChild(remover);
+        leftContainer.appendChild(titleContainer);
         titleContainer.appendChild(title);
+        titleContainer.appendChild(titleEditor);
+        task.appendChild(description);
+        task.appendChild(descriptionEditor);
         task.appendChild(dueDate);
+        task.appendChild(dueDateEditor);
+        task.appendChild(priorities);
+        priorities.appendChild(high);
+        priorities.appendChild(medium);
+        priorities.appendChild(low);
     }
-}
-
-function showTaskDetails() {
-    
+    priorityChecker();
 }
 
 function priorityChecker() {
     const tasks = document.querySelectorAll('.task');
-    tasks.forEach(task => {
-        
-    })
-    
-    /* 
-    const priority = document.querySelector('#priority');
-    if (priority.selectedIndex === 0) task.style.backgroundColor = 'rgb(252, 71, 71)';
-    else if (priority.selectedIndex === 1) task.style.backgroundColor = 'rgb(241, 182, 71)';
-    else {
-    task.style.backgroundColor = 'rgb(238, 238, 81)';
-    title.style.color = 'rgb(27, 27, 34)';
-    dueDate.style.color = 'rgb(27, 27, 34)';
+    for (let i = 0; i < tasks.length; i++) {
+        if (projects[projectID].tasks[i].priority === 'High') {
+            tasks[i].style.background = 'rgb(252, 71, 71)';
+            tasks[i].dataset.priority = 'High';
+        }
+        else if (projects[projectID].tasks[i].priority === 'Medium') {
+            tasks[i].style.background = 'rgb(241, 182, 71)';
+            tasks[i].dataset.priority = 'Medium';
+        }
+        else {
+            tasks[i].style.background = 'rgb(238, 238, 81)';
+            tasks[i].dataset.priority = 'Low';
+        }
     }
-    */
 }
 
 function removeTask(e) {
@@ -168,7 +227,7 @@ function taskResetter() {
 }
 
 //Project Exports
-export { showProjectForm, showProjects, removeProject, projectID };
+export { showProjectForm, showProjects, selectNewProject, removeProject, projectID };
 
 //Task Exports
 export { showTaskForm, cancelTaskForm, hideTaskForm, showTasks, removeTask};

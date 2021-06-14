@@ -1,8 +1,8 @@
-import { showProjects, hideTaskForm, projectID, showTasks } from "./UserInterface";
+import { showProjects, selectNewProject, hideTaskForm, projectID, showTasks } from "./UserInterface";
 import { Project, projects } from './Project';
 import Task from './Task';
 import { setLocalStorage } from "./Storage";
-import { selectProject } from './buttonListeners';
+import { selectProject } from './eventListeners';
 
 function addProject() {
     const form = document.querySelector('.project-form');
@@ -30,7 +30,7 @@ function addProject() {
     form.style.display = 'none';
 
     showProjects();
-    selectProject();
+    selectNewProject();
     setLocalStorage();
 }
 
