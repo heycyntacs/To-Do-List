@@ -2,13 +2,13 @@
     margin: 0px;
     padding: 0px;
     box-sizing: border-box;
-    color: white;
     font-family: 'Product Sans', sans-serif;
 }
 
 main {
     display: flex;
     background-color:rgb(43, 43, 54);
+    color: white;
 }
 
 button {
@@ -16,6 +16,7 @@ button {
 }
 
 .sidebar {
+    position: relative;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -31,6 +32,7 @@ button {
     margin-bottom: 20px;
     border-bottom: 1px solid white;
 }
+
 
 .project {
     display: flex;
@@ -60,16 +62,25 @@ button {
     cursor: pointer;
 }
 
-.project-remover:hover, 
-.task-remover:hover {
+.project-remover:hover {
     color: red;
+}
+
+.task-remover:hover {
+    color: black;
 }
 
 .project:hover {
     background-color: rgb(43, 43, 54);
 }
 
+.active-project {
+    background-color: rgb(61, 61, 77);
+}
+
 #show-project-form {
+    position: absolute;
+    bottom: 5%;
     font-size: 1.5rem;
     padding: 10px;
     background-color: rgb(43, 43, 54);
@@ -108,25 +119,85 @@ button {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    width: 800px;
+    width: 1000px;
     margin: 10px;
     font-size: 1.2rem;
-    transition: .2s;
+    transition: .3s;
     border-radius: 5px;
     padding: 10px 30px 10px 30px;
+    cursor: pointer;
 }
 
 .task:hover {
     background: rgb(27, 27, 34);
 }
 
-.title-container {
+.task-title, 
+.task-description,
+.task-due-date {
+    padding: 5px;
+    cursor: pointer;
+    transition: 0.3s;
+    border-radius: 5px;
+}
+
+.task-title:hover, 
+.task-description:hover,
+.task-due-date:hover {
+    background: rgba(253, 253, 253, 0.877);
+}
+
+.task-title-editor, 
+.task-description-editor,
+.task-due-date-editor{
+    display: none;
+    font-size: 1.2rem;
+    padding: 5px;
+}
+
+.task-priority-editor {
+    display: none;
+}
+
+.active-task-editor {
+    display: block;
+}
+
+.active-priority-editor {
+    display: flex;
+}
+
+.High {
+    background: red;
+}
+
+.Medium {
+    background: orange;
+}
+
+.Low {
+    background: yellow;
+}
+
+.High, .Medium, .Low {
+    height: 20px;
+    width: 20px;
+    margin: 5px;
+    border: 2px solid black;
+    border-radius: 5px;
+}
+
+.left-container {
     display: flex;
     align-items: center;
 }
 
-.title-container h3 {
+.left-container h3 {
     margin-left: 10px;
+}
+
+.title-container {
+    min-width: 180px;
 }
 
 #add-task-button {
@@ -156,6 +227,7 @@ button {
     height: 500px;
     width: 600px;
     background-color: rgb(66, 66, 85);
+    color: white;
     border-radius: 50px;
     top: 40%;
     left: 50%;

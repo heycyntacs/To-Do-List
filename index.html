@@ -16,7 +16,7 @@
         <div class="projects"></div>
         <button id="show-project-form">Add Project <span>+</span></button>
         <form class="project-form">
-            <input type="text" name='title' id="project-title" placeholder="Project" required>
+            <input type="text" name='title' id="project-title" placeholder="Project" maxlength="20" required>
             <button type="button" id='add-project'>Add Project</button>
         </form>
     </section>
@@ -29,15 +29,15 @@
     <form class="task-form">
         <div class="inputs">
         <label for="task-title">Title:</label>
-        <input type="text" id="task-title" name="title" required>
+        <input type="text" id="task-title" name="title" maxlength="30" required>
         </div>
         <div class="inputs">
         <label for="description">Description:</label>
-        <input type="text" id="description" name="description" required>
+        <input type="text" id="description" name="description" maxlength="40" required>
         </div>
         <div class="inputs">
         <label for="due-date">Due Date:</label>
-        <input type="text" id="due-date" name="due-date" required>
+        <input type="date" id="due-date" name="due-date" required>
         </div>
         <div class="inputs">
         <label for="priority">Priority:</label>
