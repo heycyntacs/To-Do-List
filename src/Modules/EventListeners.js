@@ -11,7 +11,7 @@ function buttonListeners() {
         if (e.target.id === 'show-project-form') showProjectForm();
         else if (e.target.id === 'add-project') addProject();
         else if (e.target.className === 'project-remover') removeProject(e);
-    else if (e.target.id === 'add-task-button') showTaskForm();
+        else if (e.target.id === 'add-task-button') showTaskForm();
         else if (e.target.id === 'add-task-form') addTask();
         else if (e.target.classList.contains('task-title')) editTaskTitle(e);
         else if (e.target.classList.contains('task-description')) editTaskDescription(e);
