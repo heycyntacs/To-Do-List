@@ -1,57 +1,76 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="style.css">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="style.css" />
     <title>To Do List</title>
-</head>
-<body>
+  </head>
+  <body>
     <main>
-    <section class="sidebar">
+      <section class="sidebar">
         <div class="project-header">
-            <h2>Projects</h2>
+          <h2>Projects</h2>
         </div>
         <div class="projects"></div>
         <button id="show-project-form">Add Project <span>+</span></button>
         <form class="project-form">
-            <input type="text" name='title' id="project-title" placeholder="Project" maxlength="20" required>
-            <button type="button" id='add-project'>Add Project</button>
+          <input
+            type="text"
+            name="title"
+            id="project-title"
+            placeholder="Project"
+            maxlength="20"
+            required
+          />
+          <button type="button" id="add-project">Add Project</button>
         </form>
-    </section>
-    <section class="tasks">
-            <button id="add-task-button">Add Task <span>+</span></button>
+      </section>
+      <section class="tasks">
+        <button id="add-task-button">Add Task <span>+</span></button>
         <div class="task-container"></div>
-    </section>
+      </section>
     </main>
 
     <form class="task-form">
-        <div class="inputs">
+      <div class="inputs">
         <label for="task-title">Title:</label>
-        <input type="text" id="task-title" name="title" maxlength="30" required>
-        </div>
-        <div class="inputs">
+        <input
+          type="text"
+          id="task-title"
+          name="title"
+          maxlength="30"
+          required
+        />
+      </div>
+      <div class="inputs">
         <label for="description">Description:</label>
-        <input type="text" id="description" name="description" maxlength="40" required>
-        </div>
-        <div class="inputs">
+        <input
+          type="text"
+          id="description"
+          name="description"
+          maxlength="40"
+          required
+        />
+      </div>
+      <div class="inputs">
         <label for="due-date">Due Date:</label>
-        <input type="date" id="due-date" name="due-date" required>
-        </div>
-        <div class="inputs">
+        <input type="date" id="due-date" name="due-date" required />
+      </div>
+      <div class="inputs">
         <label for="priority">Priority:</label>
         <select id="priority" name="priority" required>
-            <option value="High">High</option>
-            <option value="Medium">Medium</option>
-            <option value="Low">Low</option>
+          <option value="High">High</option>
+          <option value="Medium">Medium</option>
+          <option value="Low">Low</option>
         </select>
-        </div>
-        <div class="form-buttons">
-            <button id="add-task-form" type="button">Add</button>
-            <button id="cancel-form" type="button">Cancel</button>
-        </div>
+      </div>
+      <div class="form-buttons">
+        <button id="add-task-form" type="button">Add</button>
+        <button id="cancel-form" type="button">Cancel</button>
+      </div>
     </form>
     <script src="main.js"></script>
-</body>
+  </body>
 </html>
