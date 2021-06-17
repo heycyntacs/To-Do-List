@@ -12,4 +12,4 @@ class Project {
     }
 }
 
-export { projects, Project }
+export { projects, Project };

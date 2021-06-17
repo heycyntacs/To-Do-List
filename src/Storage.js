@@ -1,5 +1,5 @@
-import { projects } from "./Project";
-import { projectID, showProjects, showTasks } from "./UserInterface";
+import { projects } from './Project';
+import { projectID, showProjects, showTasks } from './UserInterface';
 
 function setLocalStorage() {
     localStorage.setItem('projects', JSON.stringify(projects));

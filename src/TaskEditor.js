@@ -1,6 +1,6 @@
-import { projectID, showTasks } from "./UserInterface";
-import { projects } from "./Project";
-import { setLocalStorage } from "./Storage";
+import { projectID, showTasks } from './UserInterface';
+import { projects } from './Project';
+import { setLocalStorage } from './Storage';
 
 function editTaskTitle(e) {
     const title = document.querySelectorAll('.task-title');
@@ -12,10 +12,10 @@ function editTaskTitle(e) {
 
     e.target.style.display = 'none';
 
-    let dataIndex = parseInt(e.target.dataset.index);
+    const dataIndex = parseInt(e.target.dataset.index, 10);
     titleEditor[dataIndex].classList.add('active-task-editor');
 
-    titleEditor[dataIndex].addEventListener('keydown', e => {
+    titleEditor[dataIndex].addEventListener('keydown', (e) => {
         if (e.key === 'Enter') {
             if (titleEditor[dataIndex].value === '') {
                 alert('Task cannot be blank.');
@@ -39,10 +39,10 @@ function editTaskDescription(e) {
 
     e.target.style.display = 'none';
 
-    let dataIndex = parseInt(e.target.dataset.index);
+    const dataIndex = parseInt(e.target.dataset.index, 10);
     descriptionEditor[dataIndex].classList.add('active-task-editor');
 
-    descriptionEditor[dataIndex].addEventListener('keydown', e => {
+    descriptionEditor[dataIndex].addEventListener('keydown', (e) => {
         if (e.key === 'Enter') {
             if (descriptionEditor[dataIndex].value === '') {
                 alert('Description cannot be blank.');
@@ -66,10 +66,11 @@ function editTaskDueDate(e) {
 
     e.target.style.display = 'none';
 
-    let dataIndex = parseInt(e.target.dataset.index);
+    const dataIndex = parseInt(e.target.dataset.index, 10);
+
     dueDateEditor[dataIndex].classList.add('active-task-editor');
 
-    dueDateEditor[dataIndex].addEventListener('keydown', e => {
+    dueDateEditor[dataIndex].addEventListener('keydown', (e) => {
         if (e.key === 'Enter') {
             if (dueDateEditor[dataIndex].value === '') {
                 alert('Date cannot be blank.');
@@ -80,36 +81,35 @@ function editTaskDueDate(e) {
             showTasks(projectID);
             setLocalStorage();
         }
-    })
+    });
 }
 
 function editTaskPriority(e) {
-    const task = e.target;
     const priorities = document.querySelectorAll('.task-priority-editor');
     for (let i = 0; i < priorities.length; i++) {
         priorities[i].classList.remove('active-priority-editor');
     }
 
-    let dataIndex = parseInt(e.target.dataset.index);
+    const dataIndex = parseInt(e.target.dataset.index, 10);
     priorities[dataIndex].classList.add('active-priority-editor');
 
     const high = document.querySelectorAll('.High');
-    high[dataIndex].addEventListener('click', e => {
+    high[dataIndex].addEventListener('click', (e) => {
         projects[projectID].tasks[dataIndex].priority = e.target.className;
         showTasks(projectID);
-    })
+    });
 
     const medium = document.querySelectorAll('.Medium');
-    medium[dataIndex].addEventListener('click', e => {
+    medium[dataIndex].addEventListener('click', (e) => {
         projects[projectID].tasks[dataIndex].priority = e.target.className;
         showTasks(projectID);
-    })
+    });
 
     const low = document.querySelectorAll('.Low');
-    low[dataIndex].addEventListener('click', e => {
+    low[dataIndex].addEventListener('click', (e) => {
         projects[projectID].tasks[dataIndex].priority = e.target.className;
         showTasks(projectID);
-    })
+    });
 }
 
 export { editTaskTitle, editTaskDescription, editTaskDueDate, editTaskPriority };

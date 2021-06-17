@@ -1,71 +1,10 @@
-import { projects } from './Project'
+import { projects } from './Project';
 import { setLocalStorage } from './Storage';
 import { selectProject } from './eventListeners';
 
-//PROJECT-RELATED FUNCTIONS
-
 let projectID = 0;
 
-function showProjectForm() {
-    const form = document.querySelector('.project-form');
-    if (!form.style.display || form.style.display === 'none') form.style.display = 'flex';
-    else form.style.display = 'none';
-}
-
-function showProjects() {
-    if (projects.length === 0) {
-        projectsResetter();
-        return;
-    }
-    projectsResetter();
-    const projectsDiv = document.querySelector('.projects');
-    for (let i = 0; i < projects.length; i++) {
-        const project = document.createElement('div');
-        project.classList.add(`project`);
-        project.dataset.value = `${i}`;
-
-        const projectTitle = document.createElement('h4');
-        projectTitle.classList.add('project-title');
-        projectTitle.textContent = projects[i].title;
-
-        const remover = document.createElement('span');
-        remover.classList.add('project-remover');
-        remover.dataset.index = i;
-        remover.textContent = 'X';
-
-        projectsDiv.appendChild(project);
-        project.appendChild(remover);
-        project.appendChild(projectTitle);
-    }
-}
-
-function selectNewProject() {
-    selectProject();
-    const projectsDiv = document.querySelectorAll('.project');
-    if (projectsDiv.length === 0) return;
-    for (let i = 0; i < projectsDiv.length; i++) {
-        projectsDiv[i].classList.remove('active-project');
-    }
-    projectID = parseInt(projectsDiv[projectsDiv.length - 1].dataset.value);
-    showTasks(projectID);
-    projectsDiv[projectsDiv.length - 1].classList.add('active-project');
-}
-
-function removeProject(e) {
-    projects.splice(e.target.dataset.index, 1);
-    setLocalStorage();
-    showProjects();
-    selectNewProject();
-    if (projects.length === 0) {
-        taskResetter();
-    };
-}
-
-function projectsResetter() {
-    document.querySelector('.projects').innerHTML = '';
-}
-
-//TASK-RELATED FUNCTIONS
+// TASK-RELATED FUNCTIONS
 
 function showTaskForm() {
     if (!projects[0]) {
@@ -108,6 +47,28 @@ function hideTaskForm() {
     dueDate.value = null;
 }
 
+function priorityChecker() {
+    const tasks = document.querySelectorAll('.task');
+    for (let i = 0; i < tasks.length; i++) {
+        if (projects[projectID].tasks[i].priority === 'High') {
+            tasks[i].style.background = 'rgb(252, 71, 71)';
+            tasks[i].dataset.priority = 'High';
+        }
+        else if (projects[projectID].tasks[i].priority === 'Medium') {
+            tasks[i].style.background = 'rgb(241, 182, 71)';
+            tasks[i].dataset.priority = 'Medium';
+        }
+        else {
+            tasks[i].style.background = 'rgb(238, 238, 81)';
+            tasks[i].dataset.priority = 'Low';
+        }
+    }
+}
+
+function taskResetter() {
+    document.querySelector('.task-container').innerHTML = '';
+}
+
 function showTasks(id) {
     if (projects.length === 0 || projects[id].tasks.length === 0) {
         taskResetter();
@@ -142,7 +103,7 @@ function showTasks(id) {
         titleEditor.type = 'text';
         titleEditor.value = `${title.textContent}`;
         titleEditor.maxLength = '30';
-        
+
         const description = document.createElement('p');
         description.classList.add('task-description');
         description.dataset.index = i;
@@ -171,14 +132,13 @@ function showTasks(id) {
         priorities.classList.add('task-priority-editor');
 
         const high = document.createElement('div');
-        high.classList.add('High')
+        high.classList.add('High');
 
         const medium = document.createElement('div');
-        medium.classList.add('Medium')
+        medium.classList.add('Medium');
 
         const low = document.createElement('div');
-        low.classList.add('Low')
-
+        low.classList.add('Low');
 
         tasks.appendChild(task);
         task.appendChild(leftContainer);
@@ -198,37 +158,75 @@ function showTasks(id) {
     priorityChecker();
 }
 
-function priorityChecker() {
-    const tasks = document.querySelectorAll('.task');
-    for (let i = 0; i < tasks.length; i++) {
-        if (projects[projectID].tasks[i].priority === 'High') {
-            tasks[i].style.background = 'rgb(252, 71, 71)';
-            tasks[i].dataset.priority = 'High';
-        }
-        else if (projects[projectID].tasks[i].priority === 'Medium') {
-            tasks[i].style.background = 'rgb(241, 182, 71)';
-            tasks[i].dataset.priority = 'Medium';
-        }
-        else {
-            tasks[i].style.background = 'rgb(238, 238, 81)';
-            tasks[i].dataset.priority = 'Low';
-        }
-    }
-}
-
 function removeTask(e) {
-    projects[projectID].tasks.splice([parseInt(e.target.dataset.index)], 1);
+    projects[projectID].tasks.splice([parseInt(e.target.dataset.index, 10)], 1);
     setLocalStorage();
     showTasks(projectID);
 }
 
-function taskResetter() {
-    document.querySelector('.task-container').innerHTML = '';
+// PROJECT-RELATED FUNCTIONS
+
+function showProjectForm() {
+    const form = document.querySelector('.project-form');
+    if (!form.style.display || form.style.display === 'none') form.style.display = 'flex';
+    else form.style.display = 'none';
 }
 
-//Project Exports
+function projectsResetter() {
+    document.querySelector('.projects').innerHTML = '';
+}
+
+function showProjects() {
+    if (projects.length === 0) {
+        projectsResetter();
+        return;
+    }
+    projectsResetter();
+    const projectsDiv = document.querySelector('.projects');
+    for (let i = 0; i < projects.length; i++) {
+        const project = document.createElement('div');
+        project.classList.add('project');
+        project.dataset.value = `${i}`;
+
+        const projectTitle = document.createElement('h4');
+        projectTitle.classList.add('project-title');
+        projectTitle.textContent = projects[i].title;
+
+        const remover = document.createElement('span');
+        remover.classList.add('project-remover');
+        remover.dataset.index = i;
+        remover.textContent = 'X';
+
+        projectsDiv.appendChild(project);
+        project.appendChild(remover);
+        project.appendChild(projectTitle);
+    }
+}
+
+function selectNewProject() {
+    selectProject();
+    const projectsDiv = document.querySelectorAll('.project');
+    if (projectsDiv.length === 0) return;
+    for (let i = 0; i < projectsDiv.length; i++) {
+        projectsDiv[i].classList.remove('active-project');
+    }
+    projectID = parseInt(projectsDiv[projectsDiv.length - 1].dataset.value, 10);
+    showTasks(projectID);
+    projectsDiv[projectsDiv.length - 1].classList.add('active-project');
+}
+
+function removeProject(e) {
+    projects.splice(e.target.dataset.index, 1);
+    setLocalStorage();
+    showProjects();
+    selectNewProject();
+    if (projects.length === 0) {
+        taskResetter();
+    }
+}
+
+// Project Exports
 export { showProjectForm, showProjects, selectNewProject, removeProject, projectID };
 
-//Task Exports
-export { showTaskForm, cancelTaskForm, hideTaskForm, showTasks, removeTask};
-
+// Task Exports
+export { showTaskForm, cancelTaskForm, hideTaskForm, showTasks, removeTask };

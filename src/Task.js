@@ -7,4 +7,4 @@ class Task {
     }
 }
 
-export default Task
+export default Task;
