@@ -1,4 +1,4 @@
-import { buttonListeners, selectProject } from './Modules/eventListeners';
+import { buttonListeners, selectProject } from './Modules/EventListeners';
 import { retrieveLocalStorage } from './Modules/Storage';
 
 retrieveLocalStorage();

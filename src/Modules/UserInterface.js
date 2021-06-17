@@ -1,6 +1,6 @@
 import { projects } from './Project';
 import { setLocalStorage } from './Storage';
-import { selectProject } from './eventListeners';
+import { selectProject } from './EventListeners';
 
 let projectID = 0;
 
