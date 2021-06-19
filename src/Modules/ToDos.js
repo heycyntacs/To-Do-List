@@ -1,6 +1,7 @@
-import { showProjects, selectNewProject, hideTaskForm, projectID, showTasks } from './UserInterface';
+import { showProjects, hideTaskForm, projectID, showTasks, taskResetter, selectLastProject } from './UserInterface';
 import { Project, projects } from './Project';
 import Task from './Task';
+import { setLocalStorage } from './Storage';
 
 function addProject() {
     const form = document.querySelector('.project-form');
@@ -28,7 +29,18 @@ function addProject() {
     form.style.display = 'none';
 
     showProjects();
-    selectNewProject();
+    setLocalStorage();
+    selectLastProject();
+}
+
+function removeProject(e) {
+    projects.splice(e.target.dataset.index, 1);
+    showProjects();
+    selectLastProject();
+    if (projects.length === 0) {
+        taskResetter();
+    }
+    setLocalStorage();
 }
 
 function addTask() {
@@ -57,6 +69,13 @@ function addTask() {
     }
     hideTaskForm();
     showTasks(projectID);
+    setLocalStorage();
 }
 
-export { addProject, addTask };
+function removeTask(e) {
+    projects[projectID].tasks.splice([parseInt(e.target.dataset.index, 10)], 1);
+    showTasks(projectID);
+    setLocalStorage();
+}
+
+export { addProject, removeProject, addTask, removeTask };

@@ -5,6 +5,19 @@ let projectID = 0;
 // TASK-RELATED FUNCTIONS
 
 function showTaskForm() {
+    let today = new Date();
+    let dd = today.getDate();
+    let mm = today.getMonth();
+    const yyyy = today.getFullYear();
+
+    if (dd < 10) dd = `0 ${dd}`;
+    if (mm < 10) mm = `${mm}`;
+
+    today = `${yyyy}-${mm}-${dd}`;
+
+    const dueDate = document.getElementById('due-date');
+    dueDate.setAttribute('min', today);
+
     if (!projects[0]) {
         alert('Add a Project First.');
         return;
@@ -156,11 +169,6 @@ function showTasks(id) {
     priorityChecker();
 }
 
-function removeTask(e) {
-    projects[projectID].tasks.splice([parseInt(e.target.dataset.index, 10)], 1);
-    showTasks(projectID);
-}
-
 // PROJECT-RELATED FUNCTIONS
 
 function showProjectForm() {
@@ -200,7 +208,15 @@ function showProjects() {
     }
 }
 
-function selectNewProject() {
+function selectFirstProject() {
+    const projectsDiv = document.querySelectorAll('.project');
+    if (projectsDiv.length === 0) return;
+    projectID = parseInt(projectsDiv[0].dataset.value, 10);
+    showTasks(projectID);
+    projectsDiv[0].classList.add('active-project');
+}
+
+function selectLastProject() {
     const projectsDiv = document.querySelectorAll('.project');
     if (projectsDiv.length === 0) return;
     for (let i = 0; i < projectsDiv.length; i++) {
@@ -211,17 +227,8 @@ function selectNewProject() {
     projectsDiv[projectsDiv.length - 1].classList.add('active-project');
 }
 
-function removeProject(e) {
-    projects.splice(e.target.dataset.index, 1);
-    showProjects();
-    selectNewProject();
-    if (projects.length === 0) {
-        taskResetter();
-    }
-}
-
 // Project Exports
-export { showProjectForm, showProjects, selectNewProject, removeProject, projectID };
+export { projectID, showProjectForm, showProjects, selectFirstProject, selectLastProject };
 
 // Task Exports
-export { showTaskForm, cancelTaskForm, hideTaskForm, showTasks, removeTask };
+export { showTaskForm, cancelTaskForm, hideTaskForm, showTasks, taskResetter };

@@ -1,5 +1,6 @@
 import { projectID, showTasks } from './UserInterface';
 import { projects } from './Project';
+import { setLocalStorage } from './Storage';
 
 function editTaskTitle(e) {
     const title = document.querySelectorAll('.task-title');
@@ -23,6 +24,7 @@ function editTaskTitle(e) {
             projects[projectID].tasks[dataIndex].title = titleEditor[dataIndex].value;
             titleEditor[dataIndex].classList.remove('active-task-editor');
             showTasks(projectID);
+            setLocalStorage();
         }
     });
 }
@@ -49,16 +51,28 @@ function editTaskDescription(e) {
             projects[projectID].tasks[dataIndex].description = descriptionEditor[dataIndex].value;
             descriptionEditor[dataIndex].classList.remove('active-task-editor');
             showTasks(projectID);
+            setLocalStorage();
         }
     });
 }
 
 function editTaskDueDate(e) {
+    let today = new Date();
+    let dd = today.getDate();
+    let mm = today.getMonth();
+    const yyyy = today.getFullYear();
+
+    if (dd < 10) dd = `0 ${dd}`;
+    if (mm < 10) mm = `${mm}`;
+
+    today = `${yyyy}-${mm}-${dd}`;
+
     const dueDate = document.querySelectorAll('.task-due-date');
     const dueDateEditor = document.querySelectorAll('.task-due-date-editor');
     for (let i = 0; i < dueDate.length; i++) {
         dueDate[i].style.display = 'block';
         dueDateEditor[i].classList.remove('active-task-editor');
+        dueDateEditor[i].setAttribute('min', today);
     }
 
     e.target.style.display = 'none';
@@ -76,6 +90,7 @@ function editTaskDueDate(e) {
             projects[projectID].tasks[dataIndex].dueDate = dueDateEditor[dataIndex].value;
             dueDateEditor[dataIndex].classList.remove('active-task-editor');
             showTasks(projectID);
+            setLocalStorage();
         }
     });
 }
@@ -93,18 +108,21 @@ function editTaskPriority(e) {
     high[dataIndex].addEventListener('click', (e) => {
         projects[projectID].tasks[dataIndex].priority = e.target.className;
         showTasks(projectID);
+        setLocalStorage();
     });
 
     const medium = document.querySelectorAll('.Medium');
     medium[dataIndex].addEventListener('click', (e) => {
         projects[projectID].tasks[dataIndex].priority = e.target.className;
         showTasks(projectID);
+        setLocalStorage();
     });
 
     const low = document.querySelectorAll('.Low');
     low[dataIndex].addEventListener('click', (e) => {
         projects[projectID].tasks[dataIndex].priority = e.target.className;
         showTasks(projectID);
+        setLocalStorage();
     });
 }
 
