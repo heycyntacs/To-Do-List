@@ -1,7 +1,6 @@
 import { showProjects, selectNewProject, hideTaskForm, projectID, showTasks } from './UserInterface';
 import { Project, projects } from './Project';
 import Task from './Task';
-import { setLocalStorage } from './Storage';
 
 function addProject() {
     const form = document.querySelector('.project-form');
@@ -30,7 +29,6 @@ function addProject() {
 
     showProjects();
     selectNewProject();
-    setLocalStorage();
 }
 
 function addTask() {
@@ -54,7 +52,6 @@ function addTask() {
     for (let i = 0; i < projects.length; i++) {
         if (projects[i].id === projectID) {
             projects[projectID].tasks.push(task);
-            setLocalStorage();
             break;
         }
     }

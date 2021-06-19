@@ -14,7 +14,6 @@
     "object-curly-newline": "off",
     "no-shadow": "off",
     "brace-style": ["error", "stroustrup"],
-    "no-loop-func": "off",
-    "import/no-duplicates": "off"
+    "no-loop-func": "off"
   }
 }

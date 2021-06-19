@@ -1,6 +1,4 @@
 import { projects } from './Project';
-import { setLocalStorage } from './Storage';
-import { selectProject } from './EventListeners';
 
 let projectID = 0;
 
@@ -160,7 +158,6 @@ function showTasks(id) {
 
 function removeTask(e) {
     projects[projectID].tasks.splice([parseInt(e.target.dataset.index, 10)], 1);
-    setLocalStorage();
     showTasks(projectID);
 }
 
@@ -204,7 +201,6 @@ function showProjects() {
 }
 
 function selectNewProject() {
-    selectProject();
     const projectsDiv = document.querySelectorAll('.project');
     if (projectsDiv.length === 0) return;
     for (let i = 0; i < projectsDiv.length; i++) {
@@ -217,7 +213,6 @@ function selectNewProject() {
 
 function removeProject(e) {
     projects.splice(e.target.dataset.index, 1);
-    setLocalStorage();
     showProjects();
     selectNewProject();
     if (projects.length === 0) {

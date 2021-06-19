@@ -1,6 +1,5 @@
 import { projectID, showTasks } from './UserInterface';
 import { projects } from './Project';
-import { setLocalStorage } from './Storage';
 
 function editTaskTitle(e) {
     const title = document.querySelectorAll('.task-title');
@@ -24,7 +23,6 @@ function editTaskTitle(e) {
             projects[projectID].tasks[dataIndex].title = titleEditor[dataIndex].value;
             titleEditor[dataIndex].classList.remove('active-task-editor');
             showTasks(projectID);
-            setLocalStorage();
         }
     });
 }
@@ -51,7 +49,6 @@ function editTaskDescription(e) {
             projects[projectID].tasks[dataIndex].description = descriptionEditor[dataIndex].value;
             descriptionEditor[dataIndex].classList.remove('active-task-editor');
             showTasks(projectID);
-            setLocalStorage();
         }
     });
 }
@@ -79,7 +76,6 @@ function editTaskDueDate(e) {
             projects[projectID].tasks[dataIndex].dueDate = dueDateEditor[dataIndex].value;
             dueDateEditor[dataIndex].classList.remove('active-task-editor');
             showTasks(projectID);
-            setLocalStorage();
         }
     });
 }
