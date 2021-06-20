@@ -4,7 +4,7 @@ A simple to-do list that lets you keep track of your projects and tasks!
 
 ## Live Demo
 
-[To-Do List] (https://28goo.github.io/To-Do-List/)
+[To-Do List](https://28goo.github.io/To-Do-List/)
 
 ## Usage
 
