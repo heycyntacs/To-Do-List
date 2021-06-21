@@ -34,6 +34,7 @@ function buttonListeners() {
     document.querySelector('#project-title').addEventListener('keydown', (e) => {
         if (e.key === 'Enter') {
             addProject();
+            selectProject();
         }
     });
 
