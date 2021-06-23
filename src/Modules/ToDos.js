@@ -51,7 +51,7 @@ function addTask() {
 
     // Checks if Form is Filled up
     if (title.value === '' || description.value === '' || dueDate.value === '') {
-        alert('Fill up the whole form.');
+        alert('Fill out the whole form.');
         return;
     }
 
